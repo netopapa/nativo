@@ -1,0 +1,154 @@
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react2 = require('react');
+
+var _react3 = _interopRequireDefault(_react2);
+
+var _index = require('./node_modules/react-transform-hmr/lib/index.js');
+
+var _index2 = _interopRequireDefault(_index);
+
+var _jsxFileName = '/home/noobsaybot/Documentos/nativo/App.js';
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _reactNative = require('react-native');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var _components = {
+  App: {
+    displayName: 'App'
+  }
+};
+
+var _node_modulesReactTransformHmrLibIndexJs2 = (0, _index2.default)({
+  filename: '/home/noobsaybot/Documentos/nativo/App.js',
+  components: _components,
+  locals: [module],
+  imports: [_react3.default]
+});
+
+function _wrapComponent(id) {
+  return function (Component) {
+    return _node_modulesReactTransformHmrLibIndexJs2(Component, id);
+  };
+}
+
+var largura = _reactNative.Dimensions.get('screen').width;
+
+var App = _wrapComponent('App')(function (_React$Component) {
+  _inherits(App, _React$Component);
+
+  function App() {
+    _classCallCheck(this, App);
+
+    return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).apply(this, arguments));
+  }
+
+  _createClass(App, [{
+    key: 'render',
+    value: function render() {
+
+      var dash = [{ id: 1, nome: 'Rafael Castro', imagem: 'Potala-Palace.jpg', perfilImg: 'person01.png' }, { id: 2, nome: 'João Melo', imagem: 'Jiuzhaigou.jpg', perfilImg: 'person02.png' }];
+
+      return _react3.default.createElement(_reactNative.FlatList, {
+        style: styles.topSpace,
+        keyExtractor: function keyExtractor(item) {
+          return item.id;
+        },
+        data: dash,
+        renderItem: function renderItem(_ref) {
+          var item = _ref.item;
+          return _react3.default.createElement(
+            _reactNative.View,
+            {
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 22
+              }
+            },
+            _react3.default.createElement(
+              _reactNative.View,
+              { style: styles.header, __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 23
+                }
+              },
+              _react3.default.createElement(_reactNative.Image, { source: require('./assets/img/person01.png'), style: styles.perfil, __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 24
+                }
+              }),
+              _react3.default.createElement(
+                _reactNative.Text,
+                { style: styles.nome, __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 25
+                  }
+                },
+                item.nome
+              )
+            ),
+            _react3.default.createElement(_reactNative.Image, { source: require('./assets/img/Potala-Palace.jpg'), style: styles.post, __source: {
+                fileName: _jsxFileName,
+                lineNumber: 27
+              }
+            })
+          );
+        },
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 16
+        }
+      });
+    }
+  }]);
+
+  return App;
+}(_react3.default.Component));
+
+exports.default = App;
+
+
+var styles = _reactNative.StyleSheet.create({
+  centralizado: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  negrito: {
+    fontWeight: '700'
+  },
+  white: {
+    color: '#fff'
+  },
+  post: {
+    width: largura,
+    height: largura
+  },
+  topSpace: {
+    marginTop: 20
+  },
+  header: {
+    margin: 10,
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  nome: {
+    marginLeft: 10
+  },
+  perfil: {
+    width: 40,
+    height: 40,
+    borderRadius: 20
+  }
+});
