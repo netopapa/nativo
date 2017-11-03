@@ -1,0 +1,264 @@
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Post = undefined;
+
+var _react2 = require('react');
+
+var _react3 = _interopRequireDefault(_react2);
+
+var _index = require('./../node_modules/react-transform-hmr/lib/index.js');
+
+var _index2 = _interopRequireDefault(_index);
+
+var _jsxFileName = '/home/noobsaybot/Documentos/nativo/components/Post.js';
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _reactNative = require('react-native');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var _components = {
+  Post: {
+    displayName: 'Post'
+  }
+};
+
+var _node_modulesReactTransformHmrLibIndexJs2 = (0, _index2.default)({
+  filename: '/home/noobsaybot/Documentos/nativo/components/Post.js',
+  components: _components,
+  locals: [module],
+  imports: [_react3.default]
+});
+
+function _wrapComponent(id) {
+  return function (Component) {
+    return _node_modulesReactTransformHmrLibIndexJs2(Component, id);
+  };
+}
+
+var largura = _reactNative.Dimensions.get('screen').width;
+
+var Post = exports.Post = _wrapComponent('Post')(function (_React$Component) {
+  _inherits(Post, _React$Component);
+
+  function Post(props) {
+    _classCallCheck(this, Post);
+
+    var _this = _possibleConstructorReturn(this, (Post.__proto__ || Object.getPrototypeOf(Post)).call(this, props));
+
+    _this.state = {
+      item: _this.props.item
+    };
+    return _this;
+  }
+
+  _createClass(Post, [{
+    key: 'loadIcon',
+    value: function loadIcon(likeada) {
+      return likeada ? require('../assets/img/s2-check.png') : require('../assets/img/s2.png');
+    }
+  }, {
+    key: 'like',
+    value: function like() {
+      var item = this.state.item;
+
+
+      var novaLista = [];
+      if (!item.likeada) {
+        novaLista = [].concat(_toConsumableArray(item.likers), [{ login: 'Papa Neto' }]);
+      } else {
+        novaLista = item.likers.filter(function (liker) {
+          return liker.login !== 'Papa Neto';
+        });
+      }
+
+      var fotoAtualizada = _extends({}, item, {
+        likeada: !item.likeada,
+        likers: novaLista
+      });
+
+      this.setState({ item: fotoAtualizada });
+    }
+  }, {
+    key: 'mostraLikes',
+    value: function mostraLikes(likers) {
+      if (likers.length < 1) return;
+
+      return _react3.default.createElement(
+        _reactNative.Text,
+        { style: styles.likes, __source: {
+            fileName: _jsxFileName,
+            lineNumber: 51
+          }
+        },
+        likers.length,
+        ' ',
+        likers.length > 1 ? 'curtidas' : 'curtida'
+      );
+    }
+  }, {
+    key: 'mostraComentarios',
+    value: function mostraComentarios(item) {
+      if (item.comentario === '') return;
+
+      return _react3.default.createElement(
+        _reactNative.View,
+        { style: styles.comentario, __source: {
+            fileName: _jsxFileName,
+            lineNumber: 62
+          }
+        },
+        _react3.default.createElement(
+          _reactNative.Text,
+          { style: styles.negrito, __source: {
+              fileName: _jsxFileName,
+              lineNumber: 63
+            }
+          },
+          item.loginUsuario
+        ),
+        _react3.default.createElement(
+          _reactNative.Text,
+          { style: styles.textComentario, __source: {
+              fileName: _jsxFileName,
+              lineNumber: 64
+            }
+          },
+          item.comentario
+        )
+      );
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var item = this.state.item;
+
+
+      return _react3.default.createElement(
+        _reactNative.View,
+        {
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 74
+          }
+        },
+        _react3.default.createElement(
+          _reactNative.View,
+          { style: styles.header, __source: {
+              fileName: _jsxFileName,
+              lineNumber: 75
+            }
+          },
+          _react3.default.createElement(_reactNative.Image, { source: { uri: item.urlPerfil }, style: styles.perfil, __source: {
+              fileName: _jsxFileName,
+              lineNumber: 76
+            }
+          }),
+          _react3.default.createElement(
+            _reactNative.Text,
+            { style: styles.nome, __source: {
+                fileName: _jsxFileName,
+                lineNumber: 77
+              }
+            },
+            item.loginUsuario
+          )
+        ),
+        _react3.default.createElement(_reactNative.Image, { source: { uri: item.urlFoto }, style: styles.post, __source: {
+            fileName: _jsxFileName,
+            lineNumber: 79
+          }
+        }),
+        _react3.default.createElement(
+          _reactNative.View,
+          { style: styles.rodape, __source: {
+              fileName: _jsxFileName,
+              lineNumber: 81
+            }
+          },
+          _react3.default.createElement(
+            _reactNative.TouchableOpacity,
+            { onPress: this.like.bind(this), __source: {
+                fileName: _jsxFileName,
+                lineNumber: 82
+              }
+            },
+            _react3.default.createElement(_reactNative.Image, { source: this.loadIcon(item.likeada), style: styles.botaoDeLike, __source: {
+                fileName: _jsxFileName,
+                lineNumber: 83
+              }
+            })
+          ),
+          this.mostraLikes(item.likers),
+          this.mostraComentarios(item)
+        )
+      );
+    }
+  }]);
+
+  return Post;
+}(_react3.default.Component));
+
+var styles = _reactNative.StyleSheet.create({
+  centralizado: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  negrito: {
+    fontWeight: '700'
+  },
+  white: {
+    color: '#fff'
+  },
+  post: {
+    width: largura,
+    height: largura
+  },
+  topSpace: {
+    marginTop: 20
+  },
+  header: {
+    margin: 10,
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  nome: {
+    marginLeft: 10
+  },
+  perfil: {
+    width: 40,
+    height: 40,
+    borderRadius: 20
+  },
+  rodape: {
+    margin: 10
+  },
+  botaoDeLike: {
+    width: 40,
+    height: 40
+  },
+  likes: {
+    fontWeight: '700',
+    margin: 10
+  },
+  comentario: {
+    flexDirection: 'row',
+    marginTop: 10
+  },
+  textComentario: {
+    marginLeft: 5
+  }
+});
