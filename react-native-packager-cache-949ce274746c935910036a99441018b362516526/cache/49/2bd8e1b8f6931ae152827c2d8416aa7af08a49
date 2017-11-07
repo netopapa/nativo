@@ -19,6 +19,8 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _reactNative = require('react-native');
 
+var _router = require('../router');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
@@ -59,7 +61,8 @@ var Post = exports.Post = _wrapComponent('Post')(function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (Post.__proto__ || Object.getPrototypeOf(Post)).call(this, props));
 
     _this.state = {
-      item: _this.props.item
+      item: _this.props.item,
+      valorComentario: ''
     };
     return _this;
   }
@@ -100,7 +103,7 @@ var Post = exports.Post = _wrapComponent('Post')(function (_React$Component) {
         _reactNative.Text,
         { style: styles.likes, __source: {
             fileName: _jsxFileName,
-            lineNumber: 51
+            lineNumber: 53
           }
         },
         likers.length,
@@ -117,14 +120,14 @@ var Post = exports.Post = _wrapComponent('Post')(function (_React$Component) {
         _reactNative.View,
         { style: styles.comentario, __source: {
             fileName: _jsxFileName,
-            lineNumber: 62
+            lineNumber: 64
           }
         },
         _react3.default.createElement(
           _reactNative.Text,
           { style: styles.negrito, __source: {
               fileName: _jsxFileName,
-              lineNumber: 63
+              lineNumber: 65
             }
           },
           item.loginUsuario
@@ -133,7 +136,7 @@ var Post = exports.Post = _wrapComponent('Post')(function (_React$Component) {
           _reactNative.Text,
           { style: styles.textComentario, __source: {
               fileName: _jsxFileName,
-              lineNumber: 64
+              lineNumber: 66
             }
           },
           item.comentario
@@ -141,8 +144,32 @@ var Post = exports.Post = _wrapComponent('Post')(function (_React$Component) {
       );
     }
   }, {
+    key: 'addComentario',
+    value: function addComentario(value) {
+      if (this.state.valorComentario === '') return;
+
+      var novaLista = [].concat(_toConsumableArray(this.state.item.comentarios), [{
+        id: this.state.valorComentario,
+        login: 'Papa Neto',
+        texto: this.state.valorComentario
+      }]);
+
+      var fotoAtualizada = _extends({}, this.state.item, {
+        comentarios: novaLista
+      });
+
+      this.setState({
+        item: fotoAtualizada,
+        valorComentario: ''
+      });
+
+      this.inputComentario.clear();
+    }
+  }, {
     key: 'render',
     value: function render() {
+      var _this2 = this;
+
       var item = this.state.item;
 
 
@@ -151,26 +178,26 @@ var Post = exports.Post = _wrapComponent('Post')(function (_React$Component) {
         {
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 74
+            lineNumber: 102
           }
         },
         _react3.default.createElement(
           _reactNative.View,
           { style: styles.header, __source: {
               fileName: _jsxFileName,
-              lineNumber: 75
+              lineNumber: 103
             }
           },
           _react3.default.createElement(_reactNative.Image, { source: { uri: item.urlPerfil }, style: styles.perfil, __source: {
               fileName: _jsxFileName,
-              lineNumber: 76
+              lineNumber: 104
             }
           }),
           _react3.default.createElement(
             _reactNative.Text,
             { style: styles.nome, __source: {
                 fileName: _jsxFileName,
-                lineNumber: 77
+                lineNumber: 105
               }
             },
             item.loginUsuario
@@ -178,31 +205,85 @@ var Post = exports.Post = _wrapComponent('Post')(function (_React$Component) {
         ),
         _react3.default.createElement(_reactNative.Image, { source: { uri: item.urlFoto }, style: styles.post, __source: {
             fileName: _jsxFileName,
-            lineNumber: 79
+            lineNumber: 107
           }
         }),
         _react3.default.createElement(
           _reactNative.View,
           { style: styles.rodape, __source: {
               fileName: _jsxFileName,
-              lineNumber: 81
+              lineNumber: 109
             }
           },
           _react3.default.createElement(
             _reactNative.TouchableOpacity,
-            { onPress: this.like.bind(this), __source: {
+            { onPress: this.like.bind(this), onLongPress: function onLongPress() {
+                return console.debug(item.comentarios);
+              }, __source: {
                 fileName: _jsxFileName,
-                lineNumber: 82
+                lineNumber: 110
               }
             },
             _react3.default.createElement(_reactNative.Image, { source: this.loadIcon(item.likeada), style: styles.botaoDeLike, __source: {
                 fileName: _jsxFileName,
-                lineNumber: 83
+                lineNumber: 111
               }
             })
           ),
           this.mostraLikes(item.likers),
-          this.mostraComentarios(item)
+          this.mostraComentarios(item),
+          item.comentarios.map(function (comentario) {
+            return _react3.default.createElement(
+              _reactNative.View,
+              { key: comentario.id, style: styles.comentario, __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 120
+                }
+              },
+              _react3.default.createElement(
+                _reactNative.Text,
+                { style: styles.negrito, __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 121
+                  }
+                },
+                comentario.login
+              ),
+              _react3.default.createElement(
+                _reactNative.Text,
+                { style: styles.textComentario, __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 122
+                  }
+                },
+                comentario.texto
+              )
+            );
+          }),
+          _react3.default.createElement(
+            _reactNative.View,
+            {
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 126
+              }
+            },
+            _react3.default.createElement(_reactNative.TextInput, {
+              style: styles.novoComentario,
+              placeholder: 'Digite um coment\xE1rio...',
+              ref: function ref(input) {
+                return _this2.inputComentario = input;
+              },
+              onSubmitEditing: this.addComentario.bind(this),
+              onChangeText: function onChangeText(txt) {
+                return _this2.setState({ valorComentario: txt });
+              },
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 127
+              }
+            })
+          )
         )
       );
     }
@@ -256,9 +337,12 @@ var styles = _reactNative.StyleSheet.create({
   },
   comentario: {
     flexDirection: 'row',
-    marginTop: 10
+    marginTop: 5
   },
   textComentario: {
     marginLeft: 5
+  },
+  novoComentario: {
+    height: 40
   }
 });

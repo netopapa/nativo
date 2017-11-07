@@ -1,5 +1,6 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, Dimensions, ScrollView, FlatList, TouchableOpacity } from 'react-native';
+import { StyleSheet, TextInput, Text, View, Image, Dimensions, ScrollView, FlatList, TouchableOpacity } from 'react-native';
+import { Router } from '../router';
 
 //dimensões do aparelho
 const largura = Dimensions.get('screen').width;
@@ -9,7 +10,8 @@ export class Post extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      item: this.props.item
+      item: this.props.item,
+      valorComentario: ''
     }
   }
 
@@ -66,6 +68,32 @@ export class Post extends React.Component {
     );
   }
 
+  addComentario(value){
+   if(this.state.valorComentario === '')
+    return;
+
+    const novaLista = [
+      ...this.state.item.comentarios,
+      {
+        id: this.state.valorComentario,
+        login: 'Papa Neto',
+        texto: this.state.valorComentario
+      }
+    ]
+
+    const fotoAtualizada = {
+      ...this.state.item,
+      comentarios: novaLista
+    }
+
+    this.setState({
+      item: fotoAtualizada,
+      valorComentario: ''
+    });
+
+    this.inputComentario.clear();
+  }
+
   render() {
 
     const { item } = this.state;
@@ -79,13 +107,31 @@ export class Post extends React.Component {
           <Image source={{uri: item.urlFoto}} style={styles.post}/>
 
           <View style={styles.rodape}>
-            <TouchableOpacity onPress={ this.like.bind(this) }>
+            <TouchableOpacity onPress={ this.like.bind(this)} onLongPress={() => console.debug(item.comentarios) }>
               <Image source={this.loadIcon(item.likeada)} style={styles.botaoDeLike} />
             </TouchableOpacity>
             
             {this.mostraLikes(item.likers)}
 
             {this.mostraComentarios(item)}
+
+            {item.comentarios.map(
+              comentario =>
+                <View key={comentario.id} style={styles.comentario}>
+                  <Text style={styles.negrito} >{comentario.login}</Text>
+                  <Text style={styles.textComentario} >{comentario.texto}</Text>
+                </View>
+            )}
+
+            <View>
+              <TextInput
+                style={styles.novoComentario} 
+                placeholder="Digite um comentário..."
+                ref={input => this.inputComentario = input}
+                onSubmitEditing={this.addComentario.bind(this)}
+                onChangeText={txt => this.setState({valorComentario: txt})}
+              />
+            </View>
           </View>
         </View>
     );
@@ -125,7 +171,9 @@ const styles = StyleSheet.create({
     borderRadius: 20
   },
   rodape: {
-    margin: 10
+    margin: 10,
+    /*borderBottomWidth: 1,
+    borderBottomColor: '#ddd'*/
   },
   botaoDeLike: {
     width: 40,
@@ -137,9 +185,12 @@ const styles = StyleSheet.create({
   },
   comentario: {
     flexDirection: 'row',
-    marginTop: 10
+    marginTop: 5
   },
   textComentario: {
     marginLeft: 5
+  },
+  novoComentario: {
+    height: 40
   }
 });
